@@ -306,7 +306,7 @@ The randomness adapter caps open requests globally, so the house keeps one playe
 
 ## Team stake (`PrincipalLock`)
 
-The team's 15% of vault shares, locked for good: the principal can never be withdrawn; only the value above it can,
+The team's 12.5% of vault shares, locked for good: the principal can never be withdrawn; only the value above it can,
 to an immutable dev address, where the stake's rewards are swept too.
 - `teamStake()` → `{ lock, principal, value, withdrawableExcess, pendingVaultRewards, pendingHolderRewards, devAddress,
   pendingRequest: { shares, assets, readyAt } | null, requestableExcess }` (from `pendingWithdrawal`), or null without
