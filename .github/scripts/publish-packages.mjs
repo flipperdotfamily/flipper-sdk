@@ -6,8 +6,9 @@
 //
 //   node .github/scripts/publish-packages.mjs [--dry-run] [--local]      (from this repo's root)
 //
-// --local: the first release, by hand from flipper's launch script (contracts/script/mainnet.sh release): no provenance
-// (npm only generates it in CI), and npm asks for your 2FA code on each publish. Packages go out in dependency order
+// --local: the first release, from flipper's launch script (contracts/script/mainnet.sh release): no provenance (npm
+// only generates it in CI). npm authenticates with its own config: the launch script's NPM_ACCESS_TOKEN, or your
+// `npm login` (then npm asks for your 2FA code on each publish). Packages go out in dependency order
 // (the SDK, then the widget, then the framework wrappers), so a failure never leaves one pointing at a missing release.
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, readFileSync, readdirSync, existsSync } from "node:fs";
