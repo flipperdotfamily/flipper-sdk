@@ -1,0 +1,9 @@
+{
+  "name": "example-vanilla-html",
+  "private": true,
+  "description": "Degen Cat Club: a memecoin community page. The flipper widget from one CDN <script> tag, no build step.",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "python3 -m http.server 5173"
+  }
+}

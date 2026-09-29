@@ -1,0 +1,38 @@
+name: flipper_family
+description: Drop-in, white-label flipper.family coin-flip widget for Flutter. Loads the embed in a WebView and routes its wallet requests to the host app's own wallet.
+version: 0.1.0
+homepage: https://flipper.family
+# Placeholder: confirm the public repository URL before publishing. pub.dev
+# verifies that this location contains this pubspec.
+repository: https://github.com/flipperdotfamily/flipper-sdk/tree/main/flutter
+issue_tracker: https://github.com/flipperdotfamily/flipper-sdk/issues
+documentation: https://flipper.family/docs
+topics:
+  - web3
+  - ethereum
+  - widget
+  - webview
+  - wallet
+
+environment:
+  # webview_flutter_android 4.8.0 (setMixedContentMode) needs Dart 3.6 /
+  # Flutter 3.27.
+  sdk: ">=3.6.0 <4.0.0"
+  flutter: ">=3.27.0"
+
+platforms:
+  android:
+  ios:
+
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.3.0
+  webview_flutter: ^4.10.0
+  webview_flutter_android: ^4.8.0
+  webview_flutter_wkwebview: ^3.20.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter

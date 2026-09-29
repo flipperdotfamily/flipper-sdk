@@ -1,0 +1,124 @@
+{
+  "name": "@flipperdotfamily/sdk",
+  "version": "0.1.0",
+  "description": "Headless TypeScript SDK for flipper.family coin flips (viem): flips, native ETH, token listing, deployments, odds and settlement helpers. Robinhood Chain.",
+  "keywords": [
+    "flipper",
+    "coin flip",
+    "sdk",
+    "viem",
+    "web3",
+    "ethereum",
+    "uniswap v4",
+    "robinhood chain",
+    "vrf"
+  ],
+  "license": "MIT",
+  "author": "flipper.family <dev@flipper.family>",
+  "homepage": "https://flipper.family/docs/integrate#headless",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flipperdotfamily/flipper-sdk.git",
+    "directory": "sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/flipperdotfamily/flipper-sdk/issues",
+    "email": "dev@flipper.family"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./abis": {
+      "types": "./dist/abis.d.ts",
+      "import": "./dist/abis.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./avatar": {
+      "types": "./dist/avatar.d.ts",
+      "import": "./dist/avatar.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "abis": [
+        "./dist/abis.d.ts"
+      ],
+      "react": [
+        "./dist/react.d.ts"
+      ],
+      "avatar": [
+        "./dist/avatar.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "gen:abis": "node scripts/gen-abis.mjs && node scripts/slim-abis.mjs",
+    "gen:avatar-assets": "node scripts/gen-avatar-assets.mjs",
+    "build": "rm -rf dist && tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "tsup src/avatar/index.ts --no-config --format esm --target es2022 --out-dir .test-dist --silent && tsup src/index.ts --no-config --format esm --target es2022 --out-dir .test-dist/sdk --silent && node --test test/*.test.mjs",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "motion": ">=12.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "viem": "^2.21.56",
+    "wagmi": "^2.12.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/react-query": {
+      "optional": true
+    },
+    "motion": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "wagmi": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@tanstack/react-query": "5.103.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "motion": "13.4.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3",
+    "viem": "2.56.0",
+    "wagmi": "2.19.5",
+    "zod": "4.6.5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

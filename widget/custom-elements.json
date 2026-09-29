@@ -1,0 +1,819 @@
+{
+  "schemaVersion": "2.0.0",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "dist/index.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "name": "FlipperWidget",
+          "tagName": "flipper-widget",
+          "customElement": true,
+          "description": "Drop-in flipper.family coin flip. The wallet comes from the host: set `provider` or `walletClient`.",
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "attributes": [
+            {
+              "name": "chain-id",
+              "fieldName": "chainId",
+              "type": {
+                "text": "number | \"robinhood\" | \"local\""
+              },
+              "description": "Chain to flip on (default: the manifest's, 4663 Robinhood Chain on flipper.family)"
+            },
+            {
+              "name": "rpc-url",
+              "fieldName": "rpcUrl",
+              "type": {
+                "text": "string"
+              },
+              "description": "Read RPC (default: the chain's public RPC)"
+            },
+            {
+              "name": "api-url",
+              "fieldName": "apiUrl",
+              "type": {
+                "text": "string | null"
+              },
+              "description": "flipper API for the token list and logos; \"none\" for on-chain only"
+            },
+            {
+              "name": "deployment-url",
+              "fieldName": "deploymentUrl",
+              "type": {
+                "text": "string | null"
+              },
+              "description": "Deployment manifest (default https://flipper.family/embed/deployment.json)"
+            },
+            {
+              "name": "addresses",
+              "fieldName": "addresses",
+              "type": {
+                "text": "object (JSON)"
+              },
+              "description": "Contract overrides: house, lens, flipper, v4Adapter, v3Adapter, weth…"
+            },
+            {
+              "name": "token",
+              "fieldName": "token",
+              "type": {
+                "text": "string"
+              },
+              "description": "Token selected at start: an address or \"ETH\" (default $FLIPPER)"
+            },
+            {
+              "name": "tokens",
+              "fieldName": "tokens",
+              "type": {
+                "text": "string[] (comma list)"
+              },
+              "description": "Allowlist of tokens the picker offers"
+            },
+            {
+              "name": "mode",
+              "fieldName": "mode",
+              "type": {
+                "text": "\"picker\" | \"single\""
+              },
+              "description": "picker (default): the user chooses the token. single: one fixed token (token required), no picker"
+            },
+            {
+              "name": "hide-picker",
+              "fieldName": "hidePicker",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Deprecated: use mode=\"single\""
+            },
+            {
+              "name": "fit",
+              "fieldName": "fit",
+              "type": {
+                "text": "\"auto\" | \"fill\""
+              },
+              "description": "auto (default): height follows the content. fill: take the element's full height"
+            },
+            {
+              "name": "size",
+              "fieldName": "size",
+              "type": {
+                "text": "\"sm\" | \"md\" | \"lg\" | \"auto\""
+              },
+              "description": "Scale on top of the fluid layout"
+            },
+            {
+              "name": "details",
+              "fieldName": "details",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the win chance / payout / fee line under the button (default off)"
+            },
+            {
+              "name": "tagline",
+              "fieldName": "tagline",
+              "type": {
+                "text": "string | boolean"
+              },
+              "description": "Idle headline under the coin: true = the built-in one, a string = your own (default none)"
+            },
+            {
+              "name": "eth",
+              "fieldName": "eth",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Offer native ETH, flipped as WETH (default true)"
+            },
+            {
+              "name": "listing",
+              "fieldName": "listing",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Permissionless listing of eligible tokens (default true)"
+            },
+            {
+              "name": "min-amount",
+              "fieldName": "minAmount",
+              "type": {
+                "text": "string"
+              },
+              "description": "Minimum stake in token units"
+            },
+            {
+              "name": "max-amount",
+              "fieldName": "maxAmount",
+              "type": {
+                "text": "string"
+              },
+              "description": "Maximum stake in token units"
+            },
+            {
+              "name": "approval",
+              "fieldName": "approval",
+              "type": {
+                "text": "\"max\" | \"exact\""
+              },
+              "description": "Allowance to request when short (default max)"
+            },
+            {
+              "name": "variant",
+              "fieldName": "variant",
+              "type": {
+                "text": "\"card\" | \"compact\" | \"button\""
+              },
+              "description": "Layout (default card)"
+            },
+            {
+              "name": "theme",
+              "fieldName": "theme",
+              "type": {
+                "text": "\"light\" | \"dark\" | \"auto\" | FlipperTheme (JSON)"
+              },
+              "description": "Colour mode or a full theme object"
+            },
+            {
+              "name": "accent",
+              "fieldName": "accent",
+              "type": {
+                "text": "string"
+              },
+              "description": "Accent colour"
+            },
+            {
+              "name": "radius",
+              "fieldName": "radius",
+              "type": {
+                "text": "number"
+              },
+              "description": "Card corner radius in px"
+            },
+            {
+              "name": "branding",
+              "fieldName": "branding",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "false removes the flipper.family marks"
+            },
+            {
+              "name": "brand-name",
+              "fieldName": "brandName",
+              "type": {
+                "text": "string"
+              },
+              "description": "Header name"
+            },
+            {
+              "name": "brand-logo",
+              "fieldName": "brandLogo",
+              "type": {
+                "text": "string"
+              },
+              "description": "Header logo URL"
+            },
+            {
+              "name": "coin-image",
+              "fieldName": "coinImage",
+              "type": {
+                "text": "string"
+              },
+              "description": "Heads face image URL"
+            },
+            {
+              "name": "coin-image-tails",
+              "fieldName": "coinImageTails",
+              "type": {
+                "text": "string"
+              },
+              "description": "Tails face image URL"
+            },
+            {
+              "name": "button-label",
+              "fieldName": "buttonLabel",
+              "type": {
+                "text": "string"
+              },
+              "description": "Trigger label (variant=\"button\")"
+            },
+            {
+              "name": "locale",
+              "fieldName": "locale",
+              "type": {
+                "text": "string"
+              },
+              "description": "Built-in strings: en, es"
+            },
+            {
+              "name": "reduced-motion",
+              "fieldName": "reducedMotion",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Force reduced motion on or off"
+            },
+            {
+              "name": "partner",
+              "fieldName": "partner",
+              "type": {
+                "text": "string"
+              },
+              "description": "Partner id: echoed in events, sent as X-Flipper-Partner; a registered code (1-32 of a-z 0-9 _ -) is also attributed onchain (ERC-8021 suffix on every flip)"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "chainId",
+              "attribute": "chain-id",
+              "type": {
+                "text": "number | \"robinhood\" | \"local\""
+              },
+              "description": "Chain to flip on (default: the manifest's, 4663 Robinhood Chain on flipper.family)"
+            },
+            {
+              "kind": "field",
+              "name": "rpcUrl",
+              "attribute": "rpc-url",
+              "type": {
+                "text": "string"
+              },
+              "description": "Read RPC (default: the chain's public RPC)"
+            },
+            {
+              "kind": "field",
+              "name": "apiUrl",
+              "attribute": "api-url",
+              "type": {
+                "text": "string | null"
+              },
+              "description": "flipper API for the token list and logos; \"none\" for on-chain only"
+            },
+            {
+              "kind": "field",
+              "name": "deploymentUrl",
+              "attribute": "deployment-url",
+              "type": {
+                "text": "string | null"
+              },
+              "description": "Deployment manifest (default https://flipper.family/embed/deployment.json)"
+            },
+            {
+              "kind": "field",
+              "name": "addresses",
+              "attribute": "addresses",
+              "type": {
+                "text": "object (JSON)"
+              },
+              "description": "Contract overrides: house, lens, flipper, v4Adapter, v3Adapter, weth…"
+            },
+            {
+              "kind": "field",
+              "name": "token",
+              "attribute": "token",
+              "type": {
+                "text": "string"
+              },
+              "description": "Token selected at start: an address or \"ETH\" (default $FLIPPER)"
+            },
+            {
+              "kind": "field",
+              "name": "tokens",
+              "attribute": "tokens",
+              "type": {
+                "text": "string[] (comma list)"
+              },
+              "description": "Allowlist of tokens the picker offers"
+            },
+            {
+              "kind": "field",
+              "name": "mode",
+              "attribute": "mode",
+              "type": {
+                "text": "\"picker\" | \"single\""
+              },
+              "description": "picker (default): the user chooses the token. single: one fixed token (token required), no picker"
+            },
+            {
+              "kind": "field",
+              "name": "hidePicker",
+              "attribute": "hide-picker",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Deprecated: use mode=\"single\""
+            },
+            {
+              "kind": "field",
+              "name": "fit",
+              "attribute": "fit",
+              "type": {
+                "text": "\"auto\" | \"fill\""
+              },
+              "description": "auto (default): height follows the content. fill: take the element's full height"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "attribute": "size",
+              "type": {
+                "text": "\"sm\" | \"md\" | \"lg\" | \"auto\""
+              },
+              "description": "Scale on top of the fluid layout"
+            },
+            {
+              "kind": "field",
+              "name": "details",
+              "attribute": "details",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Show the win chance / payout / fee line under the button (default off)"
+            },
+            {
+              "kind": "field",
+              "name": "tagline",
+              "attribute": "tagline",
+              "type": {
+                "text": "string | boolean"
+              },
+              "description": "Idle headline under the coin: true = the built-in one, a string = your own (default none)"
+            },
+            {
+              "kind": "field",
+              "name": "eth",
+              "attribute": "eth",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Offer native ETH, flipped as WETH (default true)"
+            },
+            {
+              "kind": "field",
+              "name": "listing",
+              "attribute": "listing",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Permissionless listing of eligible tokens (default true)"
+            },
+            {
+              "kind": "field",
+              "name": "minAmount",
+              "attribute": "min-amount",
+              "type": {
+                "text": "string"
+              },
+              "description": "Minimum stake in token units"
+            },
+            {
+              "kind": "field",
+              "name": "maxAmount",
+              "attribute": "max-amount",
+              "type": {
+                "text": "string"
+              },
+              "description": "Maximum stake in token units"
+            },
+            {
+              "kind": "field",
+              "name": "approval",
+              "attribute": "approval",
+              "type": {
+                "text": "\"max\" | \"exact\""
+              },
+              "description": "Allowance to request when short (default max)"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "attribute": "variant",
+              "type": {
+                "text": "\"card\" | \"compact\" | \"button\""
+              },
+              "description": "Layout (default card)"
+            },
+            {
+              "kind": "field",
+              "name": "theme",
+              "attribute": "theme",
+              "type": {
+                "text": "\"light\" | \"dark\" | \"auto\" | FlipperTheme (JSON)"
+              },
+              "description": "Colour mode or a full theme object"
+            },
+            {
+              "kind": "field",
+              "name": "accent",
+              "attribute": "accent",
+              "type": {
+                "text": "string"
+              },
+              "description": "Accent colour"
+            },
+            {
+              "kind": "field",
+              "name": "radius",
+              "attribute": "radius",
+              "type": {
+                "text": "number"
+              },
+              "description": "Card corner radius in px"
+            },
+            {
+              "kind": "field",
+              "name": "branding",
+              "attribute": "branding",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "false removes the flipper.family marks"
+            },
+            {
+              "kind": "field",
+              "name": "brandName",
+              "attribute": "brand-name",
+              "type": {
+                "text": "string"
+              },
+              "description": "Header name"
+            },
+            {
+              "kind": "field",
+              "name": "brandLogo",
+              "attribute": "brand-logo",
+              "type": {
+                "text": "string"
+              },
+              "description": "Header logo URL"
+            },
+            {
+              "kind": "field",
+              "name": "coinImage",
+              "attribute": "coin-image",
+              "type": {
+                "text": "string"
+              },
+              "description": "Heads face image URL"
+            },
+            {
+              "kind": "field",
+              "name": "coinImageTails",
+              "attribute": "coin-image-tails",
+              "type": {
+                "text": "string"
+              },
+              "description": "Tails face image URL"
+            },
+            {
+              "kind": "field",
+              "name": "buttonLabel",
+              "attribute": "button-label",
+              "type": {
+                "text": "string"
+              },
+              "description": "Trigger label (variant=\"button\")"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "attribute": "locale",
+              "type": {
+                "text": "string"
+              },
+              "description": "Built-in strings: en, es"
+            },
+            {
+              "kind": "field",
+              "name": "reducedMotion",
+              "attribute": "reduced-motion",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Force reduced motion on or off"
+            },
+            {
+              "kind": "field",
+              "name": "partner",
+              "attribute": "partner",
+              "type": {
+                "text": "string"
+              },
+              "description": "Partner id: echoed in events, sent as X-Flipper-Partner; a registered code (1-32 of a-z 0-9 _ -) is also attributed onchain (ERC-8021 suffix on every flip)"
+            },
+            {
+              "kind": "field",
+              "name": "provider",
+              "type": {
+                "text": "Eip1193Provider | null"
+              },
+              "description": "The host's wallet (any EIP-1193 provider)"
+            },
+            {
+              "kind": "field",
+              "name": "walletClient",
+              "type": {
+                "text": "WalletClientLike | null"
+              },
+              "description": "Or a viem client for the connected account"
+            },
+            {
+              "kind": "field",
+              "name": "onConnectRequest",
+              "type": {
+                "text": "(detail) => void"
+              },
+              "description": "Open your wallet UI when the user wants to connect"
+            },
+            {
+              "kind": "field",
+              "name": "strings",
+              "type": {
+                "text": "Partial<FlipperStrings>"
+              },
+              "description": "String overrides"
+            },
+            {
+              "kind": "method",
+              "name": "open",
+              "description": "Open the modal (variant=\"button\")"
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "description": "Close the modal"
+            },
+            {
+              "kind": "method",
+              "name": "refresh",
+              "description": "Re-read the wallet's accounts and chain, and balances"
+            }
+          ],
+          "events": [
+            {
+              "name": "ready",
+              "type": {
+                "text": "CustomEvent<{ version, chainId, account, token, variant, partner }>"
+              }
+            },
+            {
+              "name": "connect-request",
+              "type": {
+                "text": "CustomEvent<{ reason, partner } (cancelable)>"
+              }
+            },
+            {
+              "name": "flip-requested",
+              "type": {
+                "text": "CustomEvent<{ flipId, account, token, symbol, decimals, amount, winChanceBps, randomnessFee, txHash, approveTxHash, native, partner }>"
+              }
+            },
+            {
+              "name": "flip-settled",
+              "type": {
+                "text": "CustomEvent<{ flipId, account, token, symbol, decimals, amount, outcome, status, won, pending, payout, payoutToken, flipperPaid, txHash, requestTxHash, native, partner }>"
+              }
+            },
+            {
+              "name": "payout-resolved",
+              "type": {
+                "text": "CustomEvent<{ flipId, account, token, symbol, decimals, tokenPaid, flipperPaid, by, native, txHash, partner }>"
+              }
+            },
+            {
+              "name": "listing",
+              "type": {
+                "text": "CustomEvent<{ stage, token, symbol, venue, txHash, error, partner }>"
+              }
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "CustomEvent<{ code, message, context, partner }>"
+              }
+            },
+            {
+              "name": "resize",
+              "type": {
+                "text": "CustomEvent<{ width, height }>"
+              }
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "root"
+            },
+            {
+              "name": "card"
+            },
+            {
+              "name": "header"
+            },
+            {
+              "name": "brand"
+            },
+            {
+              "name": "account"
+            },
+            {
+              "name": "coin"
+            },
+            {
+              "name": "status"
+            },
+            {
+              "name": "result"
+            },
+            {
+              "name": "payout"
+            },
+            {
+              "name": "field"
+            },
+            {
+              "name": "token-button"
+            },
+            {
+              "name": "token"
+            },
+            {
+              "name": "amount-input"
+            },
+            {
+              "name": "max-button"
+            },
+            {
+              "name": "balance"
+            },
+            {
+              "name": "odds"
+            },
+            {
+              "name": "note"
+            },
+            {
+              "name": "cta"
+            },
+            {
+              "name": "details"
+            },
+            {
+              "name": "footer"
+            },
+            {
+              "name": "picker"
+            },
+            {
+              "name": "picker-search"
+            },
+            {
+              "name": "picker-row"
+            },
+            {
+              "name": "check"
+            },
+            {
+              "name": "check-launchpad"
+            },
+            {
+              "name": "trigger"
+            },
+            {
+              "name": "modal"
+            }
+          ],
+          "cssProperties": [
+            {
+              "name": "--flipper-accent"
+            },
+            {
+              "name": "--flipper-accent-text"
+            },
+            {
+              "name": "--flipper-bg"
+            },
+            {
+              "name": "--flipper-surface"
+            },
+            {
+              "name": "--flipper-field"
+            },
+            {
+              "name": "--flipper-border"
+            },
+            {
+              "name": "--flipper-text"
+            },
+            {
+              "name": "--flipper-text-muted"
+            },
+            {
+              "name": "--flipper-text-subtle"
+            },
+            {
+              "name": "--flipper-win"
+            },
+            {
+              "name": "--flipper-loss"
+            },
+            {
+              "name": "--flipper-check"
+            },
+            {
+              "name": "--flipper-check-launchpad"
+            },
+            {
+              "name": "--flipper-radius"
+            },
+            {
+              "name": "--flipper-font"
+            },
+            {
+              "name": "--flipper-font-display"
+            },
+            {
+              "name": "--flipper-font-mono"
+            },
+            {
+              "name": "--flipper-coin-size"
+            },
+            {
+              "name": "--flipper-shadow"
+            },
+            {
+              "name": "--flipper-border-width"
+            },
+            {
+              "name": "--flipper-max-width"
+            },
+            {
+              "name": "--flipper-backdrop"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FlipperWidget",
+          "declaration": {
+            "name": "FlipperWidget",
+            "module": "dist/index.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "flipper-widget",
+          "declaration": {
+            "name": "FlipperWidget",
+            "module": "dist/index.js"
+          }
+        }
+      ]
+    }
+  ]
+}

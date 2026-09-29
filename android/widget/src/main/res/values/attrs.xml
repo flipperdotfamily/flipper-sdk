@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- XML attributes of family.flipper.widget.FlipperWidgetView. All optional; code can override them. -->
+    <declare-styleable name="FlipperWidgetView">
+        <!-- Embed page, default https://flipper.family/embed. -->
+        <attr name="flipperBaseUrl" format="string" />
+        <!-- Chain id, default 4663 (Robinhood Chain); 31337 for the local fork. -->
+        <attr name="flipperChain" format="integer" />
+        <attr name="flipperToken" format="string" />
+        <!-- Comma-separated token addresses. -->
+        <attr name="flipperTokens" format="string" />
+        <attr name="flipperPartner" format="string" />
+        <attr name="flipperLocale" format="string" />
+        <attr name="flipperCompact" format="boolean" />
+        <attr name="flipperHidePicker" format="boolean" />
+        <attr name="flipperBranding" format="boolean" />
+        <attr name="flipperThemeMode" format="enum">
+            <enum name="light" value="0" />
+            <enum name="dark" value="1" />
+            <enum name="auto" value="2" />
+        </attr>
+        <!-- CSS colour string, e.g. #7C5CFF. -->
+        <attr name="flipperAccent" format="string" />
+        <!-- Corner radius in CSS px (0..40). -->
+        <attr name="flipperRadius" format="integer" />
+        <attr name="flipperAutoHeight" format="boolean" />
+        <attr name="flipperInitialHeight" format="dimension" />
+        <attr name="flipperMinHeight" format="dimension" />
+        <attr name="flipperMaxHeight" format="dimension" />
+        <attr name="flipperAllowInsecureLocalhost" format="boolean" />
+        <!-- Forward the optional EIP-5792 batch methods (default false). -->
+        <attr name="flipperEnableBatchCalls" format="boolean" />
+    </declare-styleable>
+</resources>

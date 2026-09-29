@@ -1,0 +1,48 @@
+# Dependencies and build output
+node_modules/
+dist/
+.test-dist/
+*.tsbuildinfo
+*.tgz
+
+# Examples (examples/pack.sh, the showcase, framework caches)
+examples/.packs/
+examples/.showcase/
+.next/
+out/
+.angular/
+next-env.d.ts
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# Android / Gradle
+.gradle/
+.kotlin/
+build/
+local.properties
+
+# iOS / Swift
+.build/
+.swiftpm/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Secrets: never commit keys or real env files
+.env
+.env.*
+!.env.example
+signing-key.asc
+*.gpg
+.npmrc
+
+# OS / editors / logs
+.DS_Store
+.idea/
+.vscode/
+*.iml
+*.log

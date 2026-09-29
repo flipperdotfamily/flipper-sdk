@@ -1,0 +1,15 @@
+{
+  "name": "flipper-examples-showcase",
+  "private": true,
+  "type": "module",
+  "description": "The examples showcase: one static server for every example's production build, an index page, and the runtime kit (stack + dev wallet). Started by dev.sh (scripts/examples-showcase.sh).",
+  "scripts": {
+    "build": "tsc --noEmit -p . && vite build",
+    "serve": "node serve.mjs"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "viem": "^2.40.0",
+    "vite": "^8.0.0"
+  }
+}

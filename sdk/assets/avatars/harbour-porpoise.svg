@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="b" cx=".36" cy=".24" r=".84"><stop offset="0" stop-color="#0e3a57"/><stop offset=".5" stop-color="#082536"/><stop offset="1" stop-color="#04121c"/></radialGradient>
+    <radialGradient id="h"><stop offset="0" stop-color="#9be0ff" stop-opacity=".16"/><stop offset="1" stop-color="#9be0ff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="f" x1=".2" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#9be0ff"/><stop offset="1" stop-color="#4cc2ff"/></linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="url(#b)" stroke="#4cc2ff" stroke-opacity=".4" stroke-width="2"/>
+  <ellipse cx="27" cy="13" rx="15" ry="7" fill="url(#h)"/>
+  <path fill="url(#f)" fill-rule="evenodd" d="M11.1 20.3C10.9 20.5 10.6 20.9 10.1 21.7C9.6 22.4 9.2 22.8 8.2 23.4C6.2 24.6 6.3 24.9 9.1 26C11.4 27 11.5 27.1 11.8 28.3C12.2 30.1 12.7 30.9 14.3 32.5C16.5 34.7 18.8 36.3 22.4 38.1C26.5 40.1 31.4 41.4 36.5 41.8C38.2 41.9 38.5 42.1 38.3 42.9C38.1 44.1 39 44.4 41 43.8C42.2 43.3 42.9 43 44.2 42C45.2 41.3 45.6 41.1 47 40.7C51.2 39.5 55.2 37.5 55.7 36.5C56.2 35.2 54.1 33.1 51.3 32.2C48.7 31.4 45.9 30.8 43 30.6C40.6 30.5 40.1 30.4 38.2 30.2C34.5 29.9 34.6 29.9 33.1 28.9C30 26.9 28.9 26.9 28.1 28.7C27.3 30.6 24.4 31 19.9 30C15.6 28.9 13.3 27.1 13.1 24.4C13 23.7 12.3 21.1 12 20.6C11.8 20.3 11.4 20.2 11.1 20.3M51.3 35C50.8 35.3 50.8 36 51.3 36.2C51.7 36.4 52 36.3 52.2 35.9C52.5 35.3 51.9 34.7 51.3 35"/>
+</svg>

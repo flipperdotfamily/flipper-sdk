@@ -1,0 +1,28 @@
+{
+  "name": "flipper-sdk",
+  "private": true,
+  "description": "flipper.family's developer packages: @flipperdotfamily/sdk, the widget and its framework wrappers, and the mobile SDKs.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flipperdotfamily/flipper-sdk.git"
+  },
+  "packageManager": "pnpm@10.11.1",
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r --if-present test",
+    "lint": "node .github/scripts/check-packages.mjs",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && node .github/scripts/publish-packages.mjs"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@changesets/cli": "^3.0.3",
+    "publint": "^0.3.24"
+  }
+}

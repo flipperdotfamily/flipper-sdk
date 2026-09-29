@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>flipper embed stub</title>
+    <style>
+      body { margin: 0; font: 14px system-ui, sans-serif; background: transparent; }
+      .card { margin: 12px; padding: 16px; border-radius: 16px; background: #10131a; color: #e8ecf4; }
+      button { margin: 4px 4px 0 0; padding: 8px 12px; border-radius: 10px; border: 0; background: #4cc2ff; }
+      pre { white-space: pre-wrap; word-break: break-all; font-size: 11px; max-height: 240px; overflow: auto; }
+    </style>
+  </head>
+  <body>
+    <!-- Manual test page for host SDKs: serve this directory (e.g. `npx serve test/fixtures`) and point baseUrl at
+         http://localhost:3000/embed-stub.html. It speaks protocol v1 like the real /embed, without a widget. -->
+    <div class="card">
+      <strong>flipper embed stub</strong>
+      <div>
+        <button onclick="run('eth_accounts')">eth_accounts</button>
+        <button onclick="run('eth_chainId')">eth_chainId</button>
+        <button onclick="__flipperStub.emit('connect-request', { reason: 'connect', partner: null })">connect-request</button>
+        <button onclick="run('wallet_watchAsset', { type: 'ERC20', options: { address: '0x0000000000000000000000000000000000000009', symbol: 'FLIPPER', decimals: 18 } })">watch asset</button>
+        <button onclick="run('wallet_switchEthereumChain', [{ chainId: '0x1237' }])">switch chain</button>
+        <button onclick="grow()">resize</button>
+        <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener">explorer link</a>
+      </div>
+      <pre id="log"></pre>
+    </div>
+    <script src="embed-stub.js"></script>
+    <script>
+      var log = document.getElementById("log");
+      function print(x) { log.textContent = JSON.stringify(x) + "\n" + log.textContent; }
+      function lastWallet() { return __flipperStub.lastOf("wallet"); }
+      function run(method, params) {
+        __flipperStub.rpc(method, params).then(function (r) { print({ ok: method, result: r }); }, function (e) { print({ err: method, error: e }); });
+      }
+      var h = 480;
+      function grow() { h += 40; __flipperStub.emit("resize", { width: 360, height: h }); }
+      __flipperStub.onMessage(print);
+    </script>
+  </body>
+</html>

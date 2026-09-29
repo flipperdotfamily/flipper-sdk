@@ -1,0 +1,24 @@
+# .pubignore replaces .gitignore for `dart pub publish`, so repeat the usual
+# build and tool output here.
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+pubspec.lock
+.idea/
+.vscode/
+*.iml
+.DS_Store
+coverage/
+
+example/.dart_tool/
+example/build/
+example/pubspec.lock
+example/android/
+example/ios/
+example/macos/
+example/linux/
+example/windows/
+example/web/
+example/.metadata

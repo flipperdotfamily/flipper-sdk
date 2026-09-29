@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Flipper Example",
+    "slug": "flipper-example",
+    "scheme": "flipperexample",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": { "bundleIdentifier": "family.flipper.example" },
+    "android": { "package": "family.flipper.example" },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": { "usesCleartextTraffic": true },
+          "ios": {}
+        }
+      ]
+    ]
+  }
+}

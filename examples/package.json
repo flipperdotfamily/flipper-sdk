@@ -1,0 +1,19 @@
+{
+  "name": "flipper-examples",
+  "private": true,
+  "description": "Runnable integrations of @flipperdotfamily/widget and its framework wrappers. A separate pnpm workspace: `./pack.sh && pnpm install` installs the local packages from tarballs, exactly as npm would.",
+  "scripts": {
+    "pack": "./pack.sh",
+    "build": "pnpm -r --workspace-concurrency=1 build"
+  },
+  "pnpm": {
+    "overrides": {
+      "@flipperdotfamily/sdk": "file:.packs/flipper-sdk.tgz",
+      "@flipperdotfamily/widget": "file:.packs/flipper-widget.tgz",
+      "@flipperdotfamily/react": "file:.packs/flipper-react.tgz",
+      "@flipperdotfamily/vue": "file:.packs/flipper-vue.tgz",
+      "@flipperdotfamily/svelte": "file:.packs/flipper-svelte.tgz",
+      "@flipperdotfamily/angular": "file:.packs/flipper-angular.tgz"
+    }
+  }
+}

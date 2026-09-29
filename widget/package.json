@@ -1,0 +1,112 @@
+{
+  "name": "@flipperdotfamily/widget",
+  "version": "0.1.0",
+  "description": "Drop-in coin-flip widget for flipper.family: a framework-agnostic <flipper-widget> web component. Bring your own wallet (any EIP-1193 provider or viem WalletClient), theme it, white-label it.",
+  "keywords": [
+    "flipper",
+    "coin flip",
+    "web component",
+    "custom element",
+    "widget",
+    "embed",
+    "web3",
+    "ethereum",
+    "uniswap",
+    "robinhood chain",
+    "eip-1193",
+    "lit"
+  ],
+  "license": "MIT",
+  "author": "flipper.family <dev@flipper.family>",
+  "homepage": "https://flipper.family/docs/integrate",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flipperdotfamily/flipper-sdk.git",
+    "directory": "widget"
+  },
+  "bugs": {
+    "url": "https://github.com/flipperdotfamily/flipper-sdk/issues",
+    "email": "dev@flipper.family"
+  },
+  "type": "module",
+  "sideEffects": [
+    "./dist/index.js",
+    "./dist/cdn/*"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "BRIDGE.md",
+    "custom-elements.json",
+    "LICENSE"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/cdn/flipper-widget.js",
+  "jsdelivr": "./dist/cdn/flipper-widget.js",
+  "customElements": "custom-elements.json",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./element": {
+      "types": "./dist/element.d.ts",
+      "import": "./dist/element.js"
+    },
+    "./host": {
+      "types": "./dist/host.d.ts",
+      "import": "./dist/host.js"
+    },
+    "./embed": {
+      "types": "./dist/embed.d.ts",
+      "import": "./dist/embed.js"
+    },
+    "./cdn": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/cdn/flipper-widget.esm.js"
+    },
+    "./cdn/*": "./dist/cdn/*",
+    "./custom-elements.json": "./custom-elements.json",
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "element": [
+        "./dist/element.d.ts"
+      ],
+      "host": [
+        "./dist/host.d.ts"
+      ],
+      "embed": [
+        "./dist/embed.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup && node scripts/cdn.mjs && node scripts/cem.mjs",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "size": "node scripts/size.mjs",
+    "clean": "rm -rf dist",
+    "test": "tsup src/embed/sanitize.ts src/embed/protocol.ts src/strings.ts --no-config --format esm --target es2022 --out-dir .test-dist --silent && node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@flipperdotfamily/sdk": "workspace:^",
+    "lit": "^3.3.0",
+    "viem": "^2.21.56"
+  },
+  "devDependencies": {
+    "esbuild": "^0.27.0",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "fixed": [["@flipperdotfamily/sdk", "@flipperdotfamily/widget", "@flipperdotfamily/react", "@flipperdotfamily/vue", "@flipperdotfamily/svelte", "@flipperdotfamily/angular", "@flipperdotfamily/react-native"]],
+  "linked": [],
+  "ignore": [],
+  "privatePackages": { "version": false, "tag": false }
+}

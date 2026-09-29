@@ -1,0 +1,63 @@
+# Releases the npm packages with changesets and npm trusted publishing (OIDC): no NPM_TOKEN secret.
+#
+# One-time setup, per package on npmjs.com: Settings → Trusted publishing → GitHub Actions, repository
+# flipperdotfamily/flipper-sdk, workflow `release.yml`, environment `npm`. The very first publish of a brand-new
+# package has to happen once by hand (`npm publish` with 2FA) before a trusted publisher can be attached.
+# The first release goes out by hand from flipper's launch script; this workflow stays off until the repository
+# variable NPM_TRUSTED_PUBLISHING is "true" (Settings → Secrets and variables → Actions → Variables), set once the
+# trusted publishers are attached.
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency: release-${{ github.ref }}
+
+permissions:
+  contents: write # version commits, tags, GitHub releases
+  pull-requests: write # the "Version Packages" PR
+  id-token: write # npm trusted publishing + provenance
+
+jobs:
+  release:
+    if: vars.NPM_TRUSTED_PUBLISHING == 'true'
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      # trusted publishing needs npm >= 11.5.1
+      - run: npm install -g npm@^11.5.1
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build and check the packages
+        run: |
+          pnpm build
+          pnpm typecheck
+          pnpm test
+          pnpm lint
+
+      - name: Version PR or publish
+        uses: changesets/action@v1
+        with:
+          version: pnpm changeset version
+          publish: node .github/scripts/publish-packages.mjs
+          title: "Version Packages"
+          commit: "chore: version packages"
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"

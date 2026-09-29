@@ -1,0 +1,10 @@
+# One directory per npm package (sdk, widget, react, vue, svelte, angular, react-native). examples/ is its own
+# workspace: it installs these packages from tarballs (examples/pack.sh), exactly as npm would.
+packages:
+  - "*"
+  - "!examples"
+
+# native helpers whose install scripts we allow (everything else has pure-JS fallbacks)
+onlyBuiltDependencies:
+  - esbuild
+  - unrs-resolver

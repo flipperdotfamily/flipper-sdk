@@ -1,0 +1,61 @@
+{
+  "name": "@flipperdotfamily/svelte",
+  "version": "0.1.0",
+  "description": "Svelte 5 component for flipper.family: the drop-in <FlipperWidget> coin flip (bring your own wallet).",
+  "keywords": [
+    "flipper",
+    "coin flip",
+    "svelte",
+    "sveltekit",
+    "svelte5",
+    "widget",
+    "web3",
+    "robinhood chain"
+  ],
+  "license": "MIT",
+  "author": "flipper.family <dev@flipper.family>",
+  "homepage": "https://flipper.family/docs/integrate#svelte",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flipperdotfamily/flipper-sdk.git",
+    "directory": "svelte"
+  },
+  "bugs": {
+    "url": "https://github.com/flipperdotfamily/flipper-sdk/issues",
+    "email": "dev@flipper.family"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "types": "./dist/index.d.ts",
+  "svelte": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rm -rf dist && mkdir -p dist && cp src/FlipperWidget.svelte src/index.js src/index.d.ts dist/",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@flipperdotfamily/widget": "workspace:^"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

@@ -1,0 +1,24 @@
+name: flipper_family_example
+description: Example app for flipper_family, with a Reown AppKit (WalletConnect) wallet.
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  # reown_appkit 1.6+ needs Dart 3.8.
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: ">=3.32.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flipper_family:
+    path: ../
+  reown_appkit: ^1.9.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

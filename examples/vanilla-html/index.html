@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Degen Cat Club</title>
+    <meta name="description" content="The Degen Cat Club: nine lives, zero chill. Flip the club's token, double or nothing." />
+    <link rel="icon" href="./assets/logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #140a24;
+        --bg2: #1d0f33;
+        --card: #231340;
+        --line: #ffffff17;
+        --pink: #ff4fa3;
+        --yellow: #ffe45c;
+        --text: #fff3fb;
+        --muted: #d7c4e6;
+        --display: "Baloo 2", ui-rounded, "Arial Rounded MT Bold", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html { background: var(--bg); color-scheme: dark; scroll-behavior: smooth; }
+      body {
+        margin: 0; color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(700px 500px at 80% 0%, #ff4fa333, transparent 60%),
+          radial-gradient(600px 400px at 0% 30%, #7a3cff2e, transparent 60%),
+          var(--bg);
+      }
+      a { color: inherit; }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+      button { font: inherit; cursor: pointer; }
+
+      /* nav */
+      nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; }
+      .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 800 22px/1 var(--display); letter-spacing: -0.01em; }
+      .logo img { width: 40px; height: 40px; }
+      .links { display: flex; gap: 26px; font-weight: 600; color: var(--muted); }
+      .links a { text-decoration: none; }
+      .links a:hover { color: var(--text); }
+      .pill {
+        display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 18px; border-radius: 999px; border: 0; white-space: nowrap;
+        background: var(--yellow); color: #140a24; font-weight: 800; box-shadow: 0 4px 0 #b99b16;
+      }
+      .pill:active { transform: translateY(2px); box-shadow: 0 2px 0 #b99b16; }
+      .pill.ghost { background: #ffffff12; color: var(--text); box-shadow: inset 0 0 0 1.5px #ffffff30; }
+      .pill .dot { width: 8px; height: 8px; border-radius: 50%; background: #3ddc97; }
+
+      /* hero */
+      .hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 440px); gap: 48px; align-items: center; padding: 40px 0 72px; }
+      .eyebrow { display: inline-flex; gap: 8px; align-items: center; padding: 6px 12px; border-radius: 999px; background: #ff4fa322; color: var(--pink); font-weight: 700; font-size: 14px; }
+      h1 { font: 800 clamp(46px, 7vw, 86px)/0.92 var(--display); letter-spacing: -0.02em; margin: 18px 0 18px; }
+      h1 em { font-style: normal; color: var(--pink); text-shadow: 0 6px 0 #7a1c4f; }
+      .hero p { font-size: 18px; color: var(--muted); max-width: 46ch; margin: 0 0 26px; }
+      .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+      .stats { display: flex; gap: 28px; margin-top: 36px; flex-wrap: wrap; }
+      .stats b { display: block; font: 800 28px/1 var(--display); color: var(--yellow); }
+      .stats span { font-size: 13px; color: var(--muted); }
+
+      /* the widget (its slot holds the space until the page knows the stack) */
+      .flip { position: relative; }
+      .flip::before {
+        content: ""; position: absolute; inset: -18px; border-radius: 40px; z-index: -1;
+        background: conic-gradient(from 140deg, #ff4fa355, #ffe45c44, #7a3cff55, #ff4fa355); filter: blur(28px); opacity: 0.8;
+      }
+      /* the club's widget: its display font, and a plain near-black card under the pink accent */
+      flipper-widget {
+        --flipper-font-display: var(--display);
+        --flipper-bg: #0d0e11; --flipper-surface: #131418; --flipper-field: #1a1b20; --flipper-border: #ffffff17;
+        --flipper-text: #f2f5f4; --flipper-text-muted: #f2f5f499; --flipper-text-subtle: #f2f5f466;
+        --flipper-shadow: 0 1px 2px #00000059, 0 10px 30px #00000052, inset 0 1px 0 #ffffff0d;
+      }
+      .flip-slot { min-height: 520px; }
+      .fallback-note { margin: 12px 4px 0; font-size: 13px; color: var(--muted); }
+      /* the token's symbol and name fill in once the page knows which token it flips: a placeholder until then */
+      [data-tok]:empty::before { content: "\2007\2007\2007\2007\2007"; border-radius: 6px; background: #ffffff1a; }
+
+      /* sections */
+      section { padding: 56px 0; }
+      h2 { font: 800 clamp(32px, 4.4vw, 48px)/1 var(--display); margin: 0 0 24px; }
+      .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .card { background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 22px; }
+      .card h3 { font: 800 22px/1.1 var(--display); margin: 0 0 6px; color: var(--yellow); }
+      .card p { margin: 0; color: var(--muted); }
+      .feed { display: grid; gap: 10px; }
+      .feed li { list-style: none; display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); }
+      .feed ul { margin: 0; padding: 0; display: grid; gap: 10px; }
+      .won { color: #3ddc97; font-weight: 700; }
+      .lost { color: var(--muted); }
+      .empty { color: var(--muted); }
+      footer { padding: 36px 0 48px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+      /* wallet picker */
+      dialog { border: 1px solid var(--line); border-radius: 24px; background: var(--bg2); color: var(--text); padding: 22px; width: min(380px, calc(100vw - 32px)); }
+      dialog::backdrop { background: #07030ecc; backdrop-filter: blur(4px); }
+      dialog h3 { font: 800 24px/1 var(--display); margin: 0 0 14px; }
+      .wallets { display: grid; gap: 8px; }
+      .wallet { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px; border-radius: 16px; border: 1px solid var(--line); background: #ffffff08; color: inherit; text-align: left; }
+      .wallet:hover { background: #ffffff12; }
+      .wallet img { width: 32px; height: 32px; border-radius: 9px; }
+      .wallet .tag { margin-left: auto; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; padding: 3px 7px; border-radius: 6px; background: #ffe45c; color: #140a24; }
+      .hint { font-size: 13px; color: var(--muted); margin: 12px 2px 0; }
+
+      /* toast */
+      .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, calc(100% + 40px)); visibility: hidden; transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2), visibility 0s 0.35s; background: var(--yellow); color: #140a24; padding: 12px 18px; border-radius: 999px; font-weight: 800; box-shadow: 0 10px 30px #0008; max-width: calc(100vw - 32px); }
+      .toast.show { transform: translate(-50%, 0); visibility: visible; transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+
+      @media (max-width: 880px) {
+        .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 16px; }
+        .links { display: none; }
+        .cards { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 420px) {
+        .logo { font-size: 19px; gap: 8px; }
+        .logo img { width: 34px; height: 34px; }
+        nav .pill { height: 38px; padding: 0 14px; font-size: 14px; }
+      }
+    </style>
+    <!-- 1. the widget: one script, registers <flipper-widget> -->
+    <script src="https://cdn.jsdelivr.net/npm/@flipperdotfamily/widget@0/dist/cdn/flipper-widget.js"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <nav>
+        <a class="logo" href="#"><img src="./assets/logo.svg" alt="" />Degen Cat Club</a>
+        <div class="links"><a href="#lore">Lore</a><a href="#flip">Flip</a><a href="#tokenomics">Tokenomics</a><a href="#pod">The pod</a></div>
+        <button class="pill" id="connect">Connect wallet</button>
+      </nav>
+
+      <div class="hero">
+        <div>
+          <span class="eyebrow"><span><span data-tok="sym"></span> · community-run</span></span>
+          <h1>Nine lives.<br /><em>Double</em> or nothing.</h1>
+          <p>
+            Flip your <span data-tok="sym"></span> against the house. Heads doubles your stack. Tails sends it to the house.
+            Every flip is provably fair, and you can check every one onchain.
+          </p>
+          <div class="ctas">
+            <a class="pill" href="#flip"><span>Flip <span data-tok="sym"></span></span></a>
+            <a class="pill ghost" href="#lore">Read the lore</a>
+          </div>
+          <div class="stats">
+            <div><b>9</b><span>lives per cat</span></div>
+            <div><b data-tok="supply"></b><span>total supply</span></div>
+            <div><b>Heads</b><span>doubles your stack</span></div>
+          </div>
+        </div>
+
+        <div class="flip" id="flip">
+          <!-- 2. drop it in. One token only (mode="single"), in the club's colours, with its own coin. (It's in a
+               <template> only so it starts on the right chain: the page learns the local stack first. With the
+               production defaults you'd put the tag straight in the page.) -->
+          <div class="flip-slot" id="slot"></div>
+          <template id="widget-template">
+          <flipper-widget
+            id="widget"
+            mode="single"
+            theme="dark"
+            accent="#ff4fa3"
+            radius="28"
+            brand-name="Degen Cat Club"
+            brand-logo="./assets/logo.svg"
+            coin-image="./assets/heads.svg"
+            coin-image-tails="./assets/tails.svg"
+            tagline="Feeling lucky, kitty?"
+            partner="degen-cat-club"
+          ></flipper-widget>
+          </template>
+          <p class="fallback-note" id="fallback" hidden></p>
+        </div>
+      </div>
+    </div>
+
+    <section id="lore">
+      <div class="wrap">
+        <h2>The lore</h2>
+        <div class="cards">
+          <div class="card"><h3>Born onchain</h3><p>One cat, one pool, no presale. <span data-tok="name"></span> (<span data-tok="sym"></span>) grew because the pod kept showing up.</p></div>
+          <div class="card"><h3>Nine lives</h3><p>A cat always lands on its feet. Mostly. Flip for glory and keep a life or two in the bag.</p></div>
+          <div class="card"><h3>Provably fair</h3><p>The flips run on flipper.family: verifiable randomness, a public house bankroll, and nothing hidden.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tokenomics">
+      <div class="wrap">
+        <h2>Tokenomics</h2>
+        <div class="cards">
+          <div class="card"><h3 data-tok="supply"></h3><p>Total supply of <span data-tok="sym"></span>, read from the chain.</p></div>
+          <div class="card"><h3 data-tok="venue"></h3><p data-tok="venue-note"></p></div>
+          <div class="card"><h3>Your keys</h3><p>Flips are signed in your own wallet and settle onchain. The club never holds a thing.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pod">
+      <div class="wrap">
+        <h2>Fresh from the pod</h2>
+        <div class="feed"><ul id="feed"><li class="empty">No flips yet this session. Be the first cat in.</li></ul></div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <footer><span>© Degen Cat Club. Not financial advice. Cats can't read.</span><span>Flips by flipper.family</span></footer>
+    </div>
+
+    <dialog id="wallets">
+      <h3>Pick a wallet</h3>
+      <div class="wallets" id="wallet-list"></div>
+      <p class="hint" id="wallet-hint"></p>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module">
+      const widget = document.getElementById("widget-template").content.firstElementChild.cloneNode(true);
+      const connectBtn = document.getElementById("connect");
+      // Served by the examples showcase? Then use its local stack (and dev wallet). Elsewhere: production defaults.
+      const kitUrl = "/_showcase/kit.js";
+      const kit = await import(kitUrl).catch(() => null);
+      const stack = kit ? await kit.loadStack() : null;
+      const deployment = stack?.chainId
+        ? { chainId: stack.chainId, name: stack.chainName, rpcUrl: stack.rpcUrl, apiUrl: stack.apiUrl, addresses: stack.addresses, url: stack.deploymentUrl }
+        : await loadDeployment("https://flipper.family/embed/deployment.json");
+      if (deployment) {
+        widget.chainId = deployment.chainId;
+        widget.deploymentUrl = deployment.url;
+      }
+
+      // The club's token is picked at runtime, not hard-coded: the first listed pons launch (the curated set on
+      // Robinhood Chain), else $FLIPPER. The page's copy follows whichever it is.
+      const token = deployment ? await pickToken(deployment) : null;
+      fillCopy(token, deployment);
+      if (token) {
+        widget.token = token.address;
+        if (!token.launchpad) {
+          const note = document.getElementById("fallback");
+          note.textContent = `No launchpad meme token is listed on ${deployment.name} yet, so the club flips $${token.symbol}.`;
+          note.hidden = false;
+        }
+      }
+
+      async function loadDeployment(url) {
+        try {
+          const m = await (await fetch(url)).json();
+          const d = m.deployments[String(m.default)] ?? Object.values(m.deployments)[0];
+          return { ...d, url };
+        } catch {
+          return null; // not reachable: the widget says so itself
+        }
+      }
+      async function getJson(url) {
+        const r = await fetch(url).catch(() => null);
+        return r?.ok ? r.json() : null;
+      }
+      async function pickToken(d) {
+        const api = d.apiUrl?.replace(/\/$/, "");
+        if (api) {
+          for (const kind of ["pons"]) {
+            const list = await getJson(`${api}/v1/tokens?kind=${kind}&limit=100`);
+            const meme = list?.tokens.find((t) => t.section === "listed"); // listed rows come first, best ranked first
+            if (meme) return meme;
+          }
+        }
+        const flipper = d.addresses?.flipper;
+        if (!flipper) return null;
+        const known = api ? (await getJson(`${api}/v1/tokens/${flipper}`))?.token : null; // { token, pools }
+        return known?.symbol ? known : { address: flipper, symbol: "FLIPPER", name: "Flipper", launchpad: null };
+      }
+      function fillCopy(t, d) {
+        const set = (key, text) => document.querySelectorAll(`[data-tok="${key}"]`).forEach((n) => (n.textContent = text));
+        if (!t) {
+          // nothing reachable (the widget shows why): plain words instead of a ticker
+          set("sym", "coins");
+          set("name", "The club's coin");
+          set("supply", "—");
+          set("venue", "Uniswap v4");
+          set("venue-note", "The club's coin trades in a Uniswap v4 pool.");
+          return;
+        }
+        const sym = `$${t.symbol}`;
+        set("sym", sym);
+        set("name", t.name);
+        const lp = t.launchpad ? t.launchpad[0].toUpperCase() + t.launchpad.slice(1) : null;
+        set("venue", lp ? `Born on ${lp}` : "Uniswap v4");
+        set("venue-note", lp ? `${sym} launched on ${lp} and trades in a Uniswap v4 pool.` : `${sym} trades in a Uniswap v4 pool.`);
+        document.title = `Degen Cat Club · ${sym}`;
+        document.querySelector('meta[name="description"]').content = `The Degen Cat Club: nine lives, zero chill. Flip ${sym}, double or nothing.`;
+        totalSupply(t.address, d.rpcUrl).then((n) => set("supply", n ?? "—"));
+      }
+      async function ethCall(rpcUrl, to, data) {
+        const r = await fetch(rpcUrl, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_call", params: [{ to, data }, "latest"] }),
+        });
+        return BigInt((await r.json()).result);
+      }
+      async function totalSupply(address, rpcUrl) {
+        if (!rpcUrl) return null;
+        try {
+          const [supply, decimals] = await Promise.all([ethCall(rpcUrl, address, "0x18160ddd"), ethCall(rpcUrl, address, "0x313ce567")]);
+          const whole = Number(supply / 10n ** decimals);
+          return whole >= 1e6 ? new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 2 }).format(whole) : whole.toLocaleString("en");
+        } catch {
+          return null;
+        }
+      }
+
+      document.getElementById("slot").replaceWith(widget);
+
+      // 3. the wallet is yours: discover injected wallets (EIP-6963) and hand the chosen one to the widget
+      const wallets = new Map();
+      window.addEventListener("eip6963:announceProvider", (e) => {
+        wallets.set(e.detail.info.uuid, e.detail);
+        renderWallets();
+      });
+      window.dispatchEvent(new Event("eip6963:requestProvider"));
+
+      const dialog = document.getElementById("wallets");
+      function renderWallets() {
+        const list = document.getElementById("wallet-list");
+        list.replaceChildren(
+          ...[...wallets.values()].map(({ info, provider }) => {
+            const b = document.createElement("button");
+            b.className = "wallet";
+            b.dataset.rdns = info.rdns;
+            b.innerHTML = `<img alt="" src="${info.icon}"><span>${info.name}</span>`;
+            if (info.rdns === "family.flipper.devwallet") b.insertAdjacentHTML("beforeend", `<span class="tag">DEV</span>`);
+            b.onclick = () => connect(info, provider);
+            return b;
+          }),
+        );
+        document.getElementById("wallet-hint").textContent = wallets.size
+          ? "The dev wallet appears only on a local fork."
+          : "No browser wallet found. Install one, such as Rabby or MetaMask.";
+      }
+      renderWallets();
+
+      let current = null;
+      async function connect(info, provider) {
+        const [account] = await provider.request({ method: "eth_requestAccounts" });
+        current = { info, provider };
+        localStorage.setItem("dcc:wallet", info.rdns);
+        widget.provider = provider;
+        widget.refresh();
+        setAccount(account);
+        provider.on?.("accountsChanged", (a) => setAccount(a[0]));
+        dialog.close();
+      }
+      function setAccount(account) {
+        connectBtn.innerHTML = account ? `<span class="dot"></span>${account.slice(0, 6)}…${account.slice(-4)}` : "Connect wallet";
+        connectBtn.classList.toggle("ghost", !!account);
+      }
+      connectBtn.onclick = () => (current ? disconnect() : dialog.showModal());
+      function disconnect() {
+        current?.provider.request({ method: "wallet_revokePermissions", params: [{ eth_accounts: {} }] }).catch(() => {});
+        current = null;
+        localStorage.removeItem("dcc:wallet");
+        widget.provider = null;
+        setAccount(null);
+      }
+      dialog.addEventListener("click", (e) => e.target === dialog && dialog.close());
+
+      // reconnect the last wallet silently (if it still has this site authorised)
+      const last = localStorage.getItem("dcc:wallet");
+      setTimeout(async () => {
+        const w = [...wallets.values()].find((x) => x.info.rdns === last);
+        if (!w) return;
+        const accounts = await w.provider.request({ method: "eth_accounts" }).catch(() => []);
+        if (accounts[0]) connect(w.info, w.provider);
+      }, 150);
+
+      // 4. events: Connect inside the widget opens our picker; settled flips go into the pod feed
+      widget.addEventListener("connect-request", (e) => {
+        e.preventDefault();
+        dialog.showModal();
+      });
+      const feed = document.getElementById("feed");
+      const toast = document.getElementById("toast");
+      widget.addEventListener("flip-settled", (e) => {
+        const d = e.detail;
+        const amount = Number(BigInt(d.amount) / 10n ** BigInt(Math.max(0, d.decimals - 2))) / 100;
+        // token symbols come from anyone's launch: build the row as text, never as HTML
+        const li = document.createElement("li");
+        li.dataset.flip = d.flipId;
+        const what = document.createElement("span");
+        what.textContent = `${d.account.slice(0, 6)}…${d.account.slice(-4)} flipped ${amount.toLocaleString()} ${d.symbol}`;
+        const how = document.createElement("span");
+        how.className = d.won ? "won" : "lost";
+        how.textContent = d.pending ? "won, paying out…" : d.won ? "doubled it" : "lost a life";
+        li.append(what, how);
+        feed.querySelector(".empty")?.remove();
+        // a pending win settles twice (winnings on their way, then paid): one row per flip
+        feed.querySelector(`li[data-flip="${CSS.escape(d.flipId)}"]`)?.remove();
+        feed.prepend(li);
+        toast.textContent = d.pending
+          ? `Heads! Your ${d.symbol} winnings are on their way.`
+          : d.won
+            ? `Heads! ${amount.toLocaleString()} ${d.symbol} doubled.`
+            : "Tails. The cat lands on its feet next time.";
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 4000);
+      });
+    </script>
+  </body>
+</html>

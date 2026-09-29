@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- The widget loads https://flipper.family/embed. Merged into the host app's manifest. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>

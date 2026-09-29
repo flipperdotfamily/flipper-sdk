@@ -1,0 +1,88 @@
+{
+  "name": "@flipperdotfamily/react-native",
+  "version": "0.1.0",
+  "description": "The flipper.family flip widget for React Native: a WebView embed wired to your app's wallet, plus headless hooks for fully native UI.",
+  "license": "MIT",
+  "homepage": "https://flipper.family",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flipperdotfamily/flipper-sdk.git",
+    "directory": "react-native"
+  },
+  "bugs": "https://github.com/flipperdotfamily/flipper-sdk/issues",
+  "keywords": [
+    "react-native",
+    "expo",
+    "webview",
+    "widget",
+    "web3",
+    "ethereum",
+    "walletconnect",
+    "coin-flip",
+    "flipper"
+  ],
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "react-native": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "react-native": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./headless": {
+      "types": "./dist/headless/index.d.ts",
+      "react-native": "./src/headless/index.ts",
+      "default": "./dist/headless/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "headless": [
+        "./dist/headless/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "rm -rf .test-dist && tsc -p tsconfig.test.json && node --test .test-dist/test/*.test.js",
+    "prepublishOnly": "pnpm run typecheck && pnpm run test && pnpm run build"
+  },
+  "dependencies": {
+    "@flipperdotfamily/sdk": "workspace:^0.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0",
+    "react-native": ">=0.72.0",
+    "react-native-webview": ">=13.0.0",
+    "viem": "^2.21.56"
+  },
+  "peerDependenciesMeta": {
+    "viem": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "@types/react": "^19.2.0",
+    "react": "^19.2.3",
+    "react-native": "0.87.1",
+    "react-native-webview": "14.0.1",
+    "typescript": "5.9.3",
+    "viem": "2.56.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

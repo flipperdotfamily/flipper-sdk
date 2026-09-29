@@ -1,0 +1,28 @@
+[versions]
+# Known-good set: AGP 8.7.3 needs Gradle 8.9+; Kotlin 2.1.21 is supported with AGP 8.7 and Gradle 8.11.
+agp = "8.7.3"
+kotlin = "2.1.21"
+composeBom = "2024.12.01"
+webkit = "1.12.1"
+lifecycle = "2.8.7"
+coroutines = "1.10.2"
+serialization = "1.8.1"
+junit = "4.13.2"
+
+[libraries]
+androidx-webkit = { group = "androidx.webkit", name = "webkit", version.ref = "webkit" }
+androidx-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime", version.ref = "lifecycle" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+[plugins]
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

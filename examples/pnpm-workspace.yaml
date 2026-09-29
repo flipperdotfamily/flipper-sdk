@@ -1,0 +1,10 @@
+# The examples are their own workspace (the repo root doesn't install them): run ./pack.sh first, which packs the
+# local @flipper/* packages into .packs/ — the overrides in package.json point every example at those tarballs.
+packages:
+  - "*"
+onlyBuiltDependencies:
+  - esbuild
+  - lmdb
+  - msgpackr-extract
+  - "@parcel/watcher"
+  - sharp

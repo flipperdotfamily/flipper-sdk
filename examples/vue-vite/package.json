@@ -1,0 +1,25 @@
+{
+  "name": "example-vue-vite",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@flipperdotfamily/sdk": "^0.1.0",
+    "@flipperdotfamily/vue": "^0.1.0",
+    "@tanstack/vue-query": "^5.90.0",
+    "@wagmi/core": "^3.0.0",
+    "@wagmi/vue": "^0.5.0",
+    "viem": "^2.40.0",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.0",
+    "vue-tsc": "^3.0.0"
+  }
+}

@@ -1,0 +1,9 @@
+.packs/
+node_modules/
+dist/
+out/
+.next/
+.angular/
+.showcase/
+*.tsbuildinfo
+next-env.d.ts
