@@ -93,7 +93,7 @@ Each framework reference has complete code for its usual stacks.
 
 Ask the user for these, or infer them from the design tokens and confirm:
 - `partner`: the attribution id (`[A-Za-z0-9._:-]{1,64}`). Ask for it. If the user has none, omit it and say so.
-  A partner code registered and approved in flipper's PartnerRegistry (1–32 of `a-z 0-9 _ -`) is also attributed
+  A partner code registered in flipper's PartnerRegistry (1–32 of `a-z 0-9 _ -`; anyone can register one, no approval) is also attributed
   onchain: the widget appends its ERC-8021 suffix to every flip, so the partner earns its share of attributed flips and
   its players get its odds (the preview shows them). Other values stay offchain only (events, analytics header).
 - Look: `theme` mode (`"auto"` follows the OS; apps with a manual dark toggle must pass `"light"` / `"dark"`),

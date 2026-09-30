@@ -265,7 +265,7 @@ export interface FlipPartnerTerms {
   partnerShareBps: bigint;
 }
 
-/** PartnerRegistry.Partner. `status`: 0 none, 1 pending approval, 2 approved, 3 suspended */
+/** PartnerRegistry.Partner. `status`: 0 none, 2 active (every code from registration on), 3 suspended; 1 (pending) is no longer used */
 export interface PartnerInfo {
   id: bigint;
   code: string;

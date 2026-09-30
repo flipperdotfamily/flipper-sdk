@@ -37,7 +37,7 @@ export const flipper = createFlipperClient({
 });
 ```
 
-**Partners.** With `partner` set to a code approved in the PartnerRegistry (1–32 of `a-z 0-9 _ -`), the client fetches
+**Partners.** With `partner` set to a code registered in the PartnerRegistry (1–32 of `a-z 0-9 _ -`; registration is open to anyone), the client fetches
 the code's ERC-8021 suffix once (`registry.suffixOf`) and appends it to `flip`, `flipEth` and `preview`, so previews
 show the partner's odds and each flip is attributed onchain. Partner accounting: `flipPartner(flipId)`,
 `partnerAccrued(id)`, `claimPartner(id)` (anyone; pays the partner's payout address), `partnerInfo(id)`,

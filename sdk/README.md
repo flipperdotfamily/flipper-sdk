@@ -218,8 +218,9 @@ Errors: every write rethrows a `FlipperError` whose message is plain English. `d
 
 ## Partners (ERC-8021)
 
-A partner code approved in the `PartnerRegistry` earns a share of each flip it brings (on losing flips, a cut of the
-house's expected profit, by tier) and can hand part of it back to its players as better odds.
+Anyone can be a partner: a code registered in the `PartnerRegistry` is active at once, no approval needed. It earns a
+share of each flip it brings (on losing flips, a cut of the house's expected profit: 20% in the default tier) and can
+hand part of it back to its players as better odds.
 
 ```ts
 const flipper = createFlipperClient({ publicClient, walletClient, addresses, partner: "acme" });
@@ -234,10 +235,11 @@ await flipper.flip({ token, amount });              // the flip calldata ends in
 - `partnerSuffix()` → the suffix (or undefined); `partnerRegistry()` → its address (or null).
 - House: `flipPartner(flipId)` → `{ partnerId, shareBps }` (0n: none), `partnerAccrued(id)`, `partnerAccruedTotal()`,
   `claimPartner(id)` → `{ receipt, amount }` (anyone may call; it pays the partner's current payout address).
-- Registry: `partnerInfo(id)` → `{ id, code, controller, payout, discountBps, tier, status, allowSelf }` (status 1
-  pending, 2 approved, 3 suspended), `partnerIdOfCode(code)`, `partnerTierCutBps(tier)`, `registerPartner({ code, payout,
-  discountBps })` → `{ receipt, id }`, and, for the partner's controller, `updatePartner(id, { payout } | { discountBps }
-  | { controller })`. Approval, tiers and suspension are the registry owner's (`partnerRegistryAbi`).
+- Registry: `partnerInfo(id)` → `{ id, code, controller, payout, discountBps, tier, status, allowSelf }` (status 2
+  active, 3 suspended; 1, pending, is no longer used), `partnerIdOfCode(code)`, `partnerTierCutBps(tier)`,
+  `registerPartner({ code, payout, discountBps })` → `{ receipt, id }` (active at once, in the default tier), and, for
+  the partner's controller, `updatePartner(id, { payout } | { discountBps } | { controller })`. Tier cuts, re-tiering
+  and suspension are the registry owner's (`partnerRegistryAbi`).
 - A player can't attribute their own flips (player = the partner's payout or controller) unless the owner allows it.
 
 ## Drawdown circuit breaker

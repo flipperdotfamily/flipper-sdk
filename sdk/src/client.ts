@@ -219,7 +219,7 @@ export interface CreateFlipperClientOptions {
   /** @internal */
   hookitRoutes?: boolean;
   /**
-   * Your partner code (ERC-8021 attribution, 1–32 of [a-z0-9_-], approved in the PartnerRegistry). The client
+   * Your partner code (ERC-8021 attribution, 1–32 of [a-z0-9_-], registered in the PartnerRegistry). The client
    * appends its `registry.suffixOf(code)` to every `flip` (and to `preview`), so the house attributes the flip onchain:
    * your share of its expected profit accrues to you, and your discount shows up in the player's odds.
    */
@@ -1521,7 +1521,7 @@ export function createFlipperClient({ publicClient: pc, walletClient: wc, addres
 
     /**
      * Register a partner code (1–32 of [a-z0-9_-]) with the address its share is paid to and the discount handed to
-     * players (bps of the partner's cut). The registry owner approves it into a tier before it earns.
+     * players (bps of the partner's cut). It is active at once, in the registry's default tier: no approval.
      */
     async registerPartner({ code, payout, discountBps = 0 }: { code: string; payout: Address; discountBps?: number }): Promise<{ receipt: TransactionReceipt; id: bigint }> {
       if (!isPartnerCode(code)) throw new FlipperError("A partner code is 1–32 characters of a–z, 0–9, _ and -.", "config");
