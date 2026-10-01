@@ -1,6 +1,6 @@
 {
   "name": "@flipperdotfamily/vue",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Vue 3 component, plugin and composable for flipper.family: the drop-in <FlipperWidget> (bring your own wallet) and a headless useFlipperClient.",
   "keywords": [
     "flipper",

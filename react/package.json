@@ -1,6 +1,6 @@
 {
   "name": "@flipperdotfamily/react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React components and hooks for flipper.family: the drop-in <FlipperWidget /> (SSR-safe, bring your own wallet) and a headless useFlipperClient hook.",
   "keywords": [
     "flipper",

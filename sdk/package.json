@@ -1,6 +1,6 @@
 {
   "name": "@flipperdotfamily/sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Headless TypeScript SDK for flipper.family coin flips (viem): flips, native ETH, token listing, deployments, odds and settlement helpers. Robinhood Chain.",
   "keywords": [
     "flipper",

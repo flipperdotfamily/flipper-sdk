@@ -1,6 +1,6 @@
 {
   "name": "@flipperdotfamily/react-native",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The flipper.family flip widget for React Native: a WebView embed wired to your app's wallet, plus headless hooks for fully native UI.",
   "license": "MIT",
   "homepage": "https://flipper.family",
@@ -60,7 +60,7 @@
     "prepublishOnly": "pnpm run typecheck && pnpm run test && pnpm run build"
   },
   "dependencies": {
-    "@flipperdotfamily/sdk": "workspace:^0.1.0"
+    "@flipperdotfamily/sdk": "workspace:^0.2.0"
   },
   "peerDependencies": {
     "react": ">=18.2.0",

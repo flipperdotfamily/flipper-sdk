@@ -53,7 +53,9 @@ export const PUBLIC_RPC_URLS: Record<number, string> = {
  *   [ROBINHOOD_CHAIN_ID]: { house: "0x…", lens: "0x…" },
  * then release the SDK and rebuild the widget (its CDN build and the embed bundle the SDK).
  */
-export const CANONICAL_DEPLOYMENTS: Record<number, { house: Address; lens: Address }> = {};
+export const CANONICAL_DEPLOYMENTS: Record<number, { house: Address; lens: Address }> = {
+  [ROBINHOOD_CHAIN_ID]: { house: "0x0a85400AEd34C6392e234A979A692d464E108222", lens: "0x1d31c16614b74cEEC22CD956e8505A55326E01e0" },
+};
 
 /**
  * `u` when it's a URL the SDK and widget may call or link to: `https:`, or `http:` on localhost / 127.0.0.1 / [::1]

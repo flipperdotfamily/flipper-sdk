@@ -1,6 +1,6 @@
 {
   "name": "@flipperdotfamily/widget",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Drop-in coin-flip widget for flipper.family: a framework-agnostic <flipper-widget> web component. Bring your own wallet (any EIP-1193 provider or viem WalletClient), theme it, white-label it.",
   "keywords": [
     "flipper",
